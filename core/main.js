@@ -4,9 +4,18 @@ $(function(){
 
 	var map = L.map('map').setView(B2, 16);
 
-	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+	var googleWms = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 	    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-	}).addTo(map);
+	});
+	
+	var wms_google = L.tileLayer.wms(constants.URL.MapTiles.WMS_G, {
+        layers: 'default', format: 'image/png', transparent: true, version: '1.1.1', crs: L.CRS.EPSG4326,
+        //attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+        maxZoom: 20
+    });
+    
+    googleWms.addTo(map);
 
 	var popup = L.popup()
     .setLatLng(B2)
